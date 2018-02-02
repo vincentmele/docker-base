@@ -2,6 +2,7 @@
 # Execute with: 
 # sudo make APP_NAME=artful DISTRO=ubuntu release
 # sudo make APP_NAME=jessie-slim DISTRO=debian release
+# sudo make APP_NAME=3.7 DISTRO=alpine release
 #
 # The result is the registry with update the `latest` and dated tag.
 # debian:buster-slim
@@ -16,10 +17,10 @@ VERSION=$(DATE)
 .PHONY: help
 
 build: ## Build the container
-	docker build -f $(APP_NAME)/Dockerfile -t $(APP_NAME) .
+	docker build -f $(DISTRO)/$(APP_NAME)/Dockerfile -t $(APP_NAME) .
 
 build-nc: ## Build the container without caching
-	docker build --no-cache -f $(APP_NAME)/Dockerfile -t $(APP_NAME) .
+	docker build --no-cache -f $(DISTRO)/$(APP_NAME)/Dockerfile -t $(APP_NAME) .
 
 release: build-nc publish
 
